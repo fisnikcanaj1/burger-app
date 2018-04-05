@@ -21,14 +21,14 @@ yarn-debug.log*
 yarn-error.log*
 
 # Untracked files
-../Bootstrap-to-wordpress/
-../Vue/
-../first-bootstrap4-proj/
-../loop-lab/
-../node-experiment/
-../react/
-../second-bootstrap4-proj/
-../travel-site/
+../../Bootstrap-to-wordpress/
+../../Vue/
+../../first-bootstrap4-proj/
+../../loop-lab/
+../../node-experiment/
+../../react/
+../../second-bootstrap4-proj/
+../../travel-site/
 
 # Remove root folder
 /burger-app/
