@@ -1,0 +1,34 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Untracked files
+../Bootstrap-to-wordpress/
+../Vue/
+../first-bootstrap4-proj/
+../loop-lab/
+../node-experiment/
+../react/
+../second-bootstrap4-proj/
+../travel-site/
+
+# Remove root folder
+/burger-app/
