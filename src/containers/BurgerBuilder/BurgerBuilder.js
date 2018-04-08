@@ -10,6 +10,7 @@ const INGREDIENT_PRICES = {
     bacon: 0.6
 }
 
+
 class BurgerBuilder extends Component {
 
     state = {
@@ -47,11 +48,21 @@ class BurgerBuilder extends Component {
         this.setState({ totalPrice: newPrice, ingradients: updateIngradientes });
     } 
 
-
     render () {
+        const disableInfo = {
+            ...this.state.ingradients
+        }
+        
+        for(let i in disableInfo) {
+            disableInfo[i] = disableInfo[i] <= 0;
+        }
+        
         return <Aux>
             <Burger ingradients={this.state.ingradients} />
-            <BuildControls ingredientAdded={this.addIngredientHandler} ingredientRemoved={this.removeIngredientHandler} />
+            <BuildControls 
+                ingredientAdded={this.addIngredientHandler} 
+                ingredientRemoved={this.removeIngredientHandler}
+                disabled={disableInfo} />
         </Aux>
     }
 }
