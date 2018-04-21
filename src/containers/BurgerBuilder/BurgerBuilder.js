@@ -3,7 +3,7 @@ import Aux from '../../hoc/ReactAux';
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControles/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
-import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery'
+import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -11,7 +11,6 @@ const INGREDIENT_PRICES = {
     meat: 1.3,
     bacon: 0.6
 }
-
 
 class BurgerBuilder extends Component {
 
@@ -23,7 +22,12 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
+    }
+
+    purchaseHandler = () => {
+        this.setState({ purchasing: true});
     }
 
     updatePurchase(ingradients) {
@@ -35,7 +39,6 @@ class BurgerBuilder extends Component {
                 return sum + el;
             }, 0);
         this.setState({purchasable: sum > 0});
-
     }
 
     addIngredientHandler = (type) => {
@@ -65,6 +68,13 @@ class BurgerBuilder extends Component {
         this.updatePurchase(updateIngradientes);
     } 
 
+    purchseCanclleHandler = () => {
+        this.setState({ purchasing: false})
+    }
+
+    purchaseContinueHandler = () => {
+        alert('You continue')
+    }
     render () {
         const disableInfo = {
             ...this.state.ingradients
@@ -76,8 +86,11 @@ class BurgerBuilder extends Component {
         
         return ( 
             <Aux>
-                <Modal>
-                    <OrderSummery ingredients={this.state.ingradients} />
+                <Modal show={this.state.purchasing} modalClosed={this.purchseCanclleHandler}>
+                    <OrderSummery 
+                    ingredients={this.state.ingradients}
+                    purchaseCancelled={this.purchseCanclleHandler}
+                    purchaseContinued={this.purchaseContinueHandler} />
                 </Modal>
                 <Burger ingradients={this.state.ingradients} />
                 <BuildControls
@@ -85,7 +98,9 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disableInfo}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchaseHandler}
                     price={this.state.totalPrice} />
+                
             </Aux>
         );
     }
