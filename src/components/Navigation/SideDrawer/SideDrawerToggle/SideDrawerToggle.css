@@ -5,6 +5,13 @@
     justify-content: center;
     flex-flow: column;
     padding: 7px 0;
+    cursor: pointer;
+}
+
+@media (min-width: 500px) {
+    .SideDrawerToggle {
+        display: none;
+    }
 }
 
 .SideDrawerToggle div {

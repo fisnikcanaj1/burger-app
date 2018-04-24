@@ -6,16 +6,16 @@ import BackDrop from '../../UI/Backdrop/Backdrop';
 import Aux from '../../../hoc/ReactAux';
 
 const sideDrawer = (props) => {
-    let attachedClasses = [classes.SideDrawer, classes.Close];
+    let attachedClasses = [classes.SideDrawer, classes.BackDrop, classes.Close];
     if(props.open) {
-        attachedClasses = [classes.SideDrawer, classes.Open];
+        attachedClasses = [classes.SideDrawer, classes.BackDrop, classes.Open];
     }
     
     return (
         <Aux>
             <BackDrop show={props.open} clicked={props.closed} />  
             <div className={attachedClasses.join(' ')}>
-                <div className={classes.Logo}>
+                <div className={classes.Logo} style={{margin: 0}}>
                     <Logo />
                 </div>
                 <nav>
