@@ -15,8 +15,8 @@ const sideDrawer = (props) => {
         <Aux>
             <BackDrop show={props.open} clicked={props.closed} />  
             <div className={attachedClasses.join(' ')}>
-                <div className={classes.Logo} style={{margin: 0}}>
-                    <Logo />
+                <div className={classes.Logo}>
+                    <Logo style={{ marginLeft: 0 }} />
                 </div>
                 <nav>
                     <NavigationItems />
