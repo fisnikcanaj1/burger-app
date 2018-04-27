@@ -27,7 +27,11 @@
 }
 
 .Logo {
-    height: 20%;
+    height: 11%;
+    width: 5%;
     margin: 0 0 32px -39px;
 }
 
+.Log img {
+    display: block;
+}
