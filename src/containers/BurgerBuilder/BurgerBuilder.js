@@ -27,7 +27,7 @@ class BurgerBuilder extends Component {
         purchasable: false,
         purchasing: false,
         error: null,
-        loading: true
+        loading: false
     }
 
     purchaseHandler = () => {
@@ -77,7 +77,7 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({ loading: false})
+        this.setState({ loading: true})
         let order = {
             ingradients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -91,18 +91,16 @@ class BurgerBuilder extends Component {
                 email: 'canajfisnik@gmail.com'
             }
         }
-
+    
         axios.post('/orders.json', order)
             .then(request => {
                 this.setState({ loading: false, purchasing: false });
-                console.log(request);
-                
             })
             .catch(error => { 
                 this.setState({ loading: false, purchasing: false });
             });
-
     }
+
     render () {
         const disableInfo = {
             ...this.state.ingradients
@@ -112,10 +110,9 @@ class BurgerBuilder extends Component {
             ingredients={this.state.ingradients}
             price={this.state.totalPrice}
             purchaseCancelled={this.purchseCanclleHandler}
-            purchaseContinued={this.purchaseContinueHandler} />
+            purchaseContinued={this.purchaseContinueHandler} />;
 
-        console.log(this.state.loading);
-        if(!this.state.loading) {
+        if(this.state.loading) {
             orderSummery = <Spinner />;
         }
 
