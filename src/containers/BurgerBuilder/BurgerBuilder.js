@@ -112,8 +112,6 @@ class BurgerBuilder extends Component {
         
         let orderSummery = null;
 
-       
-        
         let ingredientComponent = <Spinner />
 
         if (this.state.ingradients) {

@@ -28,3 +28,10 @@
         height: 600px;
     }
 }
+
+@media (min-width: 1400px) {
+    .Burger{
+        width: 720px;
+        height: 720px;
+    }
+}

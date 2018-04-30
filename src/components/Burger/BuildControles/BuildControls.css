@@ -9,6 +9,13 @@
     padding: 10px 0;
 }
 
+@media (min-width: 1400px) {
+    .BuildControls {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
 .OrderButton {
     background-color: #DAD735;
     outline: none;
@@ -20,6 +27,7 @@
     padding: 15px 30px;
     box-shadow: 2px 2px 2px #966909;
 }
+
 
 .OrderButton:hover,
 .OrderButton:active {
