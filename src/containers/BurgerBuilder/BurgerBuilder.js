@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Aux from '../../hoc/ReactAux';
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControles/BuildControls';
@@ -6,7 +7,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
 import axios from '../../axios-order';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import WithErrorHandler from '../withErrorHandler/withErrorhandler'
+import WithErrorHandler from '../withErrorHandler/withErrorhandler';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -30,7 +31,6 @@ class BurgerBuilder extends Component {
         axios.get('https://react-my-burger-158da.firebaseio.com/ingredients.json')
             .then(request => {
                 this.setState({ingradients: request.data});
-                console.log(this.state.ingradients);
             });
     }
 
@@ -81,28 +81,36 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({ loading: true})
-        let order = {
-            ingradients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Fisnik Canaj',
-                addres: {
-                    street: 'Teststreet 1',
-                    zipCode: '123',
-                    country: 'Kline'
-                },
-                email: 'canajfisnik@gmail.com'
-            }
-        }
+        
+        // this.setState({ loading: true})
+        // let order = {
+        //     ingradients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Fisnik Canaj',
+        //         addres: {
+        //             street: 'Teststreet 1',
+        //             zipCode: '123',
+        //             country: 'Kline'
+        //         },
+        //         email: 'canajfisnik@gmail.com'
+        //     }
+        // }
      
-        axios.post('/orders.json', order)
-            .then(request => {
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => { 
-                this.setState({ loading: false, purchasing: false });
-            });
+        // axios.post('/orders.json', order)
+        //     .then(request => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     })
+        //     .catch(error => { 
+        //         this.setState({ loading: false, purchasing: false });
+        //     });
+
+        // const queryParams = [];
+
+        this.props.history.push({
+            pathname: "/checkout",
+            search: 'Hellow'
+        });
     }
 
     render () {
@@ -155,4 +163,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default WithErrorHandler(BurgerBuilder, axios);
+export default WithErrorHandler(withRouter(BurgerBuilder), axios);
