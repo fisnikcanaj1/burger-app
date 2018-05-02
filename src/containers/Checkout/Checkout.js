@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import CheckoutSummery from '../../components/Burger/Order/CheckoutSummery/CheckoutSummary';
 
 class Checkout extends Component {
     state = {
         ingradients: {
-            bacon: 1,
-            meat: 1,
-            salad: 1,
-            cheese: 1
+
         }
+    }
+
+    componentDidMount () {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingradients = {};
+
+        for(let param of query.entries()) {
+            ingradients[param[0]] = +param[1];
+        }
+
+        this.setState({ingradients: ingradients});
     }
 
     checkoutCancelleHandler = () => {        
@@ -31,4 +40,4 @@ class Checkout extends Component {
     }
 }
 
-export default Checkout;
+export default withRouter(Checkout);
