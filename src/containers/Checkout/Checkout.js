@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import CheckoutSummery from '../../components/Burger/Order/CheckoutSummery/CheckoutSummary';
+import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
     state = {
-        ingradients: {
-
-        }
+        ingradients: null
     }
 
     componentDidMount () {
@@ -25,7 +24,7 @@ class Checkout extends Component {
     }
 
     checkoutContinueHandler = () => {
-        this.props.history.push('/checkout/contact-info')        
+        this.props.history.push('/checkout/contact-data')        
     }
 
     render() {
@@ -35,9 +34,13 @@ class Checkout extends Component {
                     ingradients={this.state.ingradients}
                     checkoutCancelled={this.checkoutCancelleHandler}
                     checkoutContinue={this.checkoutContinueHandler}/>
+                    <Route 
+                        path={this.props.match.path + '/contact-data'} 
+                        render={() => (<ContactData ingredients={this.state.ingradients} />)}
+                    />
             </div>
         );
     }
 }
 
-export default withRouter(Checkout);
+export default Checkout;
