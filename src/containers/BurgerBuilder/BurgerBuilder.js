@@ -28,7 +28,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount () {
-        axios.get('https://react-my-burger-158da.firebaseio.com/ingredients.json')
+        axios.get('https://react-my-burger-158da.firebaseio.com/ingradients.json')
             .then(request => {
                 this.setState({ingradients: request.data});
             });
@@ -77,39 +77,15 @@ class BurgerBuilder extends Component {
     } 
 
     purchseCanclleHandler = () => {
-        this.setState({ purchasing: false})
+        this.setState({ purchasing: false});
     }
 
     purchaseContinueHandler = () => {
-        
-        // this.setState({ loading: true})
-        // let order = {
-        //     ingradients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Fisnik Canaj',
-        //         addres: {
-        //             street: 'Teststreet 1',
-        //             zipCode: '123',
-        //             country: 'Kline'
-        //         },
-        //         email: 'canajfisnik@gmail.com'
-        //     }
-        // }
-     
-        // axios.post('/orders.json', order)
-        //     .then(request => {
-        //         this.setState({ loading: false, purchasing: false });
-        //     })
-        //     .catch(error => { 
-        //         this.setState({ loading: false, purchasing: false });
-        //     });
-
         const queryParams = Object.keys(this.state.ingradients)
             .map(igKey => {
                 return encodeURIComponent(igKey) + '=' + encodeURIComponent(this.state.ingradients[igKey]);
         });
-        
+        queryParams.push('price=' + this.state.totalPrice);
         const queryString = queryParams.join('&');
 
         this.props.history.push({

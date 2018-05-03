@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
+import { withRouter } from 'react-router-dom';
 import classes from './ContactData.css';
+import axios from 'axios';
+
 
 class ContactData extends Component {
     state = {
         ingredients: null,
+        price: 4,
         name: '',
         email: '',
         address: {
@@ -15,7 +19,30 @@ class ContactData extends Component {
     }
 
     orderHandler = (e) => {
-        this.setState({ingredients: this.props.ingredients});
+        this.setState({ loading: true})
+        let order = {
+            ingradients: this.props.ingredients,
+            price: this.props.price,
+            customer: {
+                name: 'Fisnik Canaj',
+                addres: {
+                    street: 'Teststreet 1',
+                    zipCode: '123',
+                    country: 'Kline'
+                },
+                email: 'canajfisnik@gmail.com'
+            }
+        }
+
+        axios.post('https://react-my-burger-158da.firebaseio.com/orders.json', order)
+            .then(request => {
+                this.setState({ loading: false });
+            })
+            .catch(error => { 
+                this.setState({ loading: false });
+            });
+
+        this.setState({ingredients: this.props.ingredients, price: this.props.price});
         e.preventDefault();
     }
 
@@ -35,4 +62,4 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+export default withRouter(ContactData);
