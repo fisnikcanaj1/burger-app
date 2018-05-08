@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner'
 import { withRouter } from 'react-router-dom';
 import classes from './ContactData.css';
 import axios from 'axios';
+import Aux from '../../../hoc/ReactAux';
 
 
 class ContactData extends Component {
@@ -37,6 +39,7 @@ class ContactData extends Component {
         axios.post('https://react-my-burger-158da.firebaseio.com/orders.json', order)
             .then(request => {
                 this.setState({ loading: false });
+                this.props.history.push('/');
             })
             .catch(error => { 
                 this.setState({ loading: false });
@@ -47,8 +50,7 @@ class ContactData extends Component {
     }
 
     render() {
-        return (
-            <div className={classes.ContactData}>
+        let form = (<Aux>
                 <h4>Enter your Contact Data</h4>
                 <form>
                     <input type="text" name="name" placeholder="Your name " />
@@ -57,8 +59,15 @@ class ContactData extends Component {
                     <input type="text" name="postal" placeholder="Your Postal Code " />
                     <Button btnType="Success" clicked={this.orderHandler} > ORDER </Button>
                 </form>
-            </div>
-        );
+            </Aux>);
+
+        if(this.state.loading) {
+            form = (<Spinner />);
+        }
+
+        return (<div className={classes.ContactData}>
+            {form}
+        </div>);
     }
 }
 
