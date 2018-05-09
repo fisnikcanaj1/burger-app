@@ -12,7 +12,6 @@ class Orders extends Component {
     componentWillMount() {
         axios.get('https://react-my-burger-158da.firebaseio.com/orders.json')
             .then((request) => {
-                // console.log(request.data)
                 let fetchedOrders = [];
                 for(let key in request.data) {
                     fetchedOrders.push({
@@ -22,22 +21,18 @@ class Orders extends Component {
                 }
                 
                 this.setState({loading: false, orders: fetchedOrders});
-                console.log(this.state.orders);
             }).catch((e) => {
                 this.setState({loading: false}); 
-                console.log(e);
             });
     }
 
     render() {
-        // console.log(this.state.orders);
          
         return (<div>
                 {this.state.orders.map(order => {
-                // console.log(order.ingredients);
                     return <Order 
                         key={order.id} 
-                        ingredients={order.ingredients}
+                        ingredients={order.ingradients}
                         price={+order.price}/>
                 })}
             </div>)
