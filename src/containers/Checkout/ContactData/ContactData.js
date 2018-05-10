@@ -66,11 +66,16 @@ class ContactData extends Component {
 
     orderHandler = (e) => {
         this.setState({ loading: true})
+        let formData = {};
         let order = {
             ingradients: this.props.ingredients,
-            price: this.props.price
+            price: this.props.price,
+            orderData: formData
         }
-
+        
+        for(let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier]
+        }
         axios.post('https://react-my-burger-158da.firebaseio.com/orders.json', order)
             .then(request => {
                 this.setState({ loading: false });
@@ -84,6 +89,20 @@ class ContactData extends Component {
         e.preventDefault();
     }
 
+    inputChangeHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+
+        const updateFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updateFormElement.value = event.target.value;
+        
+        updatedOrderForm[inputIdentifier] = updateFormElement
+        this.setState({orderForm: updatedOrderForm});
+    } 
+
     render() {
         const formElementArray = [];
 
@@ -95,7 +114,7 @@ class ContactData extends Component {
         }
         let form = (<Aux>
                 <h4>Enter your Contact Data</h4>
-                <form>
+                <form onSubmit={this.orderHandler}>
                     {formElementArray.map(formElement => {                        
                     console.log(formElement.config.value);   
                             return (<Input 
@@ -103,8 +122,9 @@ class ContactData extends Component {
                                 elementtype={formElement.config.elementType} 
                                 elementconfig={formElement.config.elementConfig}
                                 value={formElement.config.value}
+                                changed={(event) => this.inputChangeHandler(event, formElement.id)}
                                 />
-                            )
+                            );
                         
                         })
                     }
